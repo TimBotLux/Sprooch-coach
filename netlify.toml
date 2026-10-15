@@ -1,0 +1,14 @@
+# Déploiement Netlify : l'app est dans le sous-dossier sprooch-coach-app.
+[build]
+  base = "sprooch-coach-app"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Le service worker doit toujours être revalidé pour que les mises à jour arrivent.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"

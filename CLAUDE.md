@@ -54,4 +54,5 @@ There is no test suite. Verify changes with `npm run build` (type-check) and by 
 
 - Keep the design charter's rules: one primary (filled blue) button per screen, Young Serif for Luxembourgish text and titles, Figtree for UI, cards with 1 px border and 14 px radius, no shadows, single 720 px column.
 - `sprooch-coach-app/README.md` holds a table mapping each PRD section to its implementation status; update it when scope changes.
-- Git: local repository only (no remote), author identity is the machine's global config. Commit only when the user asks ("enregistre une version").
+- Git: remote `origin` = https://github.com/TimBotLux/Sprooch-coach (public), branch `main`; author identity is the machine's global config. Commit and push only when the user asks ("enregistre une version").
+- Deployment: `netlify.toml` at the root builds `sprooch-coach-app` (`publish = "dist"`, relative to the base). The Netlify site itself is linked from the user's own Netlify account.
