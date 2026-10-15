@@ -1,0 +1,4 @@
+Images pour le module « Description d'image » (PRD §4.2).
+Déposez ici des photos libres de droits de scènes du quotidien au Luxembourg,
+nommées comme dans src/data/images.ts (scene-marche.jpg, scene-gare.jpg, ...).
+Tant qu'une image manque, l'app affiche la description de la scène à la place.

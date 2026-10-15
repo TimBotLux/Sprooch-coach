@@ -1,0 +1,5 @@
+# Dépendances et versions compilées de l'app (recréées par npm install / npm run build)
+node_modules/
+dist/
+# Réglages locaux de l'éditeur
+.claude/

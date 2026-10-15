@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>Enregistrements Sprooch Coach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a reading script for a voice recorder — one card per voice message, numbered lines read in order, a tick per message sent. */
+:root{
+  --bg:#F3F7FA; --surface:#FFFFFF; --fg:#14212B; --muted:#56687A; --line:#D8E2E9;
+  --accent:#0082B8; --accent-soft:#E1F2FA;
+  --ok:#1D8556; --ok-soft:#E0F3EA; --warn:#B4700A; --warn-soft:#FBF0DC;
+  --font-display:"Young Serif", Georgia, "Times New Roman", serif;
+  --font-body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D151B; --surface:#15212A; --fg:#E6EDF2; --muted:#94A6B4; --line:#253542;
+    --accent:#4FC2EE; --accent-soft:#12303F;
+    --ok:#5ACF97; --ok-soft:#123426; --warn:#F2B44A; --warn-soft:#3A2A0E;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D151B; --surface:#15212A; --fg:#E6EDF2; --muted:#94A6B4; --line:#253542;
+  --accent:#4FC2EE; --accent-soft:#12303F;
+  --ok:#5ACF97; --ok-soft:#123426; --warn:#F2B44A; --warn-soft:#3A2A0E;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.5}
+.flag{height:6px;display:flex}
+.flag span{flex:1}
+.flag span:nth-child(1){background:#EF3340}
+.flag span:nth-child(2){background:#FFFFFF;border-block:1px solid var(--line)}
+.flag span:nth-child(3){background:#00A3E0}
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:20px 56px;display:flex;flex-direction:column;gap:24px}
+h1{font-family:var(--font-display);font-weight:400;font-size:1.9rem;line-height:1.15;margin:0;text-wrap:balance}
+h1 small{display:block;font-family:var(--font-body);font-size:.95rem;color:var(--muted);margin-top:8px}
+h2{font-family:var(--font-display);font-weight:400;font-size:1.35rem;margin:0;text-wrap:balance}
+.intro{display:flex;flex-direction:column;gap:12px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.box ol,.box ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.box b{font-weight:600}
+.label{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.progress{display:flex;flex-direction:column;gap:6px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding-block:10px;z-index:2;border-bottom:1px solid var(--line)}
+.progress .row{display:flex;justify-content:space-between;font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.lot{display:flex;flex-direction:column;gap:12px}
+.lot-head{display:flex;flex-direction:column;gap:4px}
+.lot-head p{margin:0;color:var(--muted);font-size:.95rem}
+.prio{align-self:flex-start;font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--accent-soft);color:var(--accent)}
+.msg{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.msg.done{border-color:var(--ok)}
+.msg-head{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.code{font:700 .85rem var(--font-body);letter-spacing:.04em;background:var(--accent-soft);color:var(--accent);padding:4px 8px;border-radius:6px;font-variant-numeric:tabular-nums}
+.msg-title{flex:1;min-width:0;font-weight:600}
+.msg-title small{display:block;font-weight:400;color:var(--muted);font-size:.85rem}
+.sent{display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:600;color:var(--muted);cursor:pointer}
+.sent input{width:20px;height:20px;accent-color:var(--ok)}
+.msg.done .sent{color:var(--ok)}
+.items{list-style:none;margin:0;padding:0}
+.items li{display:grid;grid-template-columns:2.2rem 1fr;gap:4px 8px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.items li:last-child{border-bottom:0}
+.n{color:var(--muted);font-variant-numeric:tabular-nums;font-size:.9rem;padding-top:3px}
+.lb{font-family:var(--font-display);font-size:1.15rem;line-height:1.35;min-width:0}
+.fr{grid-column:2;color:var(--muted);font-size:.85rem}
+.tag{font-size:.72rem;font-weight:600;color:var(--warn);background:var(--warn-soft);padding:1px 6px;border-radius:99px;margin-left:6px;font-family:var(--font-body);vertical-align:middle}
+.copy{border:1px solid var(--line);background:none;color:var(--accent);font:600 .8rem var(--font-body);padding:5px 9px;border-radius:8px;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+
+<div class="flag" aria-hidden="true"><span></span><span></span><span></span></div>
+<div class="wrap">
+  <section class="intro">
+    <h1>Enregistrements Sprooch Coach<small>Merci de prêter votre voix ! Ces phrases serviront à des candidats qui préparent le Sproochentest. Chaque carte ci-dessous correspond à <b>un seul message vocal</b>.</small></h1>
+
+    <div class="box">
+      <div class="label">Comment enregistrer</div>
+      <ol>
+        <li><b>Lisez d'abord les phrases.</b> Si une phrase ne sonne pas naturelle ou contient une faute, lisez votre version corrigée et envoyez la correction par écrit.</li>
+        <li>Avant chaque message vocal, envoyez <b>le code de la carte</b> en texte (par exemple <b>Q1</b>).</li>
+        <li>Lisez les lignes <b>dans l'ordre</b>, avec <b>2 secondes de silence</b> entre chaque ligne. Pas besoin de dire les numéros.</li>
+        <li>Parlez naturellement, à un rythme un peu plus lent qu'au quotidien, comme un examinateur poli (vouvoiement).</li>
+        <li>Si vous vous trompez, faites une pause et relisez simplement la ligne.</li>
+        <li>Cochez « Envoyé » sur la carte pour suivre où vous en êtes.</li>
+      </ol>
+    </div>
+
+    <div class="box">
+      <div class="label">Pour un bon son</div>
+      <ul>
+        <li>Pièce calme, sans télé ni musique, fenêtre fermée.</li>
+        <li>Téléphone à environ 20 cm de la bouche, pas collé.</li>
+        <li>Une seconde de silence au début et à la fin du message.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="progress" aria-live="polite">
+    <div class="row"><span>Messages envoyés</span><span id="count">0 / 0</span></div>
+    <div class="bar"><i id="bar"></i></div>
+  </div>
+
+  <div id="lots" class="intro"></div>
+</div>
+
+<script>
+const CHAPTERS=[
+ {title:"Se présenter",qs:[
+  ["Moien, wéi geet et Iech?","Bonjour, comment allez-vous ?","Merci, et geet mer gutt. An Iech?","Merci, ça va bien. Et vous ?","Wéi geet et?"],
+  ["Wéi heescht Dir?","Comment vous appelez-vous ?","Ech heeschen Ana Silva.","Je m'appelle Ana Silva.","Wéi ass Ären Numm?"],
+  ["Wou kommt Dir hier?","D'où venez-vous ?","Ech kommen aus Portugal, aus Porto.","Je viens du Portugal, de Porto."],
+  ["Wéi al sidd Dir?","Quel âge avez-vous ?","Ech sinn 35 Joer al.","J'ai 35 ans."],
+  ["Wou wunnt Dir?","Où habitez-vous ?","Ech wunnen zu Esch-Uelzecht.","J'habite à Esch-sur-Alzette."]]},
+ {title:"Langues",qs:[
+  ["Wéi eng Sprooche schwätzt Dir?","Quelles langues parlez-vous ?","Ech schwätze Portugisesch, Franséisch an e bësse Lëtzebuergesch.","Je parle portugais, français et un peu luxembourgeois."],
+  ["Firwat léiert Dir Lëtzebuergesch?","Pourquoi apprenez-vous le luxembourgeois ?","Ech wëll d'Nationalitéit kréien an ech wëll mat mengen Noperen schwätzen.","Je veux obtenir la nationalité et parler avec mes voisins."],
+  ["Zënter wéini sidd Dir zu Lëtzebuerg?","Depuis quand êtes-vous au Luxembourg ?","Ech sinn zënter fënnef Joer hei.","Je suis ici depuis cinq ans.","Wéi laang wunnt Dir schonn hei?"]]},
+ {title:"Famille et amis",qs:[
+  ["Sidd Dir bestuet?","Êtes-vous marié(e) ?","Jo, ech si bestuet.","Oui, je suis marié(e)."],
+  ["Hutt Dir Kanner?","Avez-vous des enfants ?","Jo, ech hunn zwee Kanner, e Jong an eng Duechter.","Oui, j'ai deux enfants, un fils et une fille."],
+  ["Hutt Dir Geschwëster?","Avez-vous des frères et sœurs ?","Ech hunn ee Brudder an eng Schwëster.","J'ai un frère et une sœur."]]},
+ {title:"Travail",qs:[
+  ["Wat schafft Dir?","Quel est votre métier ?","Ech schaffen als Infirmière an engem Spidol.","Je travaille comme infirmière dans un hôpital.","Wat ass Äre Beruff?"],
+  ["Wou schafft Dir?","Où travaillez-vous ?","Ech schaffen zu Lëtzebuerg-Stad.","Je travaille à Luxembourg-Ville."],
+  ["Wéi kommt Dir op d'Aarbecht?","Comment allez-vous au travail ?","Ech fuere mam Bus, dat dauert eng hallef Stonn.","Je prends le bus, ça dure une demi-heure."]]},
+ {title:"Loisirs",qs:[
+  ["Wat maacht Dir an Ärer Fräizäit?","Que faites-vous pendant votre temps libre ?","Ech liese gär an ech ginn trëppelen.","J'aime lire et je vais me promener."],
+  ["Maacht Dir Sport?","Faites-vous du sport ?","Jo, ech ginn zweemol d'Woch schwammen.","Oui, je vais nager deux fois par semaine."]]}
+];
+const VOCAB=[
+ ["MOIS","Mois",[["Januar","janvier"],["Februar","février"],["Mäerz","mars"],["Abrëll","avril"],["Mee","mai"],["Juni","juin"],["Juli","juillet"],["August","août"],["September","septembre"],["Oktober","octobre"],["November","novembre"],["Dezember","décembre"]],
+  [["Mäi Gebuertsdag ass am Mäerz.","Mon anniversaire est en mars."],["Ech fueren am August an d'Vakanz.","Je pars en vacances en août."]]],
+ ["JOURS","Jours",[["Méindeg","lundi"],["Dënschdeg","mardi"],["Mëttwoch","mercredi"],["Donneschdeg","jeudi"],["Freideg","vendredi"],["Samschdeg","samedi"],["Sonndeg","dimanche"]],
+  [["Ech schaffe vu Méindes bis Freides.","Je travaille du lundi au vendredi."],["E Sonndeg ginn ech mat menger Famill trëppelen.","Le dimanche, je me promène avec ma famille."]]],
+ ["SAISONS","Saisons et météo",[["de Fréijoer","le printemps"],["de Summer","l'été"],["den Hierscht","l'automne"],["de Wanter","l'hiver"],["Et reent.","Il pleut."],["Et schneit.","Il neige."],["Et ass kal.","Il fait froid."],["Et ass waarm.","Il fait chaud."]],
+  [["Ech hunn de Summer am léifsten, well et waarm ass.","Je préfère l'été, parce qu'il fait chaud."],["Haut reent et an et ass kal.","Aujourd'hui il pleut et il fait froid."]]],
+ ["COULEURS","Couleurs",[["rout","rouge"],["blo","bleu"],["giel","jaune"],["gréng","vert"],["wäiss","blanc"],["schwaarz","noir"],["gro","gris"],["brong","marron"],["mof","violet"]],
+  [["Meng Liblingsfaarf ass gréng.","Ma couleur préférée est le vert."],["Ech droen eng blo Box an e wäisse Pullover.","Je porte un pantalon bleu et un pull blanc."]]],
+ ["NOMBRES","Nombres",[["eent","un"],["zwee","deux"],["dräi","trois"],["véier","quatre"],["fënnef","cinq"],["sechs","six"],["siwen","sept"],["aacht","huit"],["néng","neuf"],["zéng","dix"]],
+  [["Ech sinn 35 Joer al.","J'ai 35 ans."],["Mir sinn véier Persounen doheem.","Nous sommes quatre à la maison."]]],
+ ["FAMILLE","Famille",[["d'Mamm","la mère"],["de Papp","le père"],["de Brudder","le frère"],["d'Schwëster","la sœur"],["de Jong","le fils"],["d'Duechter","la fille"],["d'Kanner","les enfants"],["d'Grousselteren","les grands-parents"]],
+  [["Ech hunn eng Fra an zwee Kanner, e Jong an eng Duechter.","J'ai une femme et deux enfants, un fils et une fille."]]],
+ ["VERBES","Verbes",[["sinn","être"],["hunn","avoir"],["goen","aller"],["kommen","venir"],["wunnen","habiter"],["schaffen","travailler"],["schwätzen","parler"],["iessen","manger"],["drénken","boire"],["maachen","faire"],["kafen","acheter"],["liesen","lire"]],
+  [["Moies drénken ech e Kaffi an dann ginn ech op d'Aarbecht.","Le matin je bois un café, puis je vais au travail."]]],
+ ["NOURRITURE","Nourriture",[["d'Brout","le pain"],["de Kéis","le fromage"],["d'Fleesch","la viande"],["d'Geméis","les légumes"],["d'Uebst","les fruits"],["de Kaffi","le café"],["d'Waasser","l'eau"],["d'Mëllech","le lait"]],
+  [["Ech iesse gär Geméis a Fësch.","J'aime manger des légumes et du poisson."],["Moies drénken ech e Kaffi mat Mëllech.","Le matin je bois un café au lait."]]]
+];
+
+// Construction des messages vocaux, par lot de priorité
+const LOTS=[
+ {title:"Lot 1 : les questions de l'examinateur",prio:"Priorité 1",desc:"Le plus important : ces questions sont ce que les candidats doivent apprendre à comprendre. Les lignes marquées « autre formulation » sont une seconde manière de poser la même question.",
+  msgs:CHAPTERS.map((c,ci)=>({code:"Q"+(ci+1),title:"Questions · "+c.title,items:c.qs.flatMap(q=>{const a=[{lb:q[0],fr:q[1]}];if(q[4])a.push({lb:q[4],fr:q[1],alt:true});return a;})}))},
+ {title:"Lot 2 : les réponses modèles",prio:"Priorité 2",desc:"Des exemples de réponses d'un candidat, lus calmement et clairement.",
+  msgs:CHAPTERS.map((c,ci)=>({code:"R"+(ci+1),title:"Réponses · "+c.title,items:c.qs.map(q=>({lb:q[2],fr:q[3]}))}))},
+ {title:"Lot 3 : le vocabulaire",prio:"Priorité 3",desc:"Un message par thème : les mots seuls, puis les phrases d'exemple. Lisez les mots avec l'article quand il est indiqué.",
+  msgs:VOCAB.map(([k,label,words,phrases])=>({code:k,title:"Vocabulaire · "+label,items:[...words.map(w=>({lb:w[0],fr:w[1]})),...phrases.map(p=>({lb:p[0],fr:p[1],ex:true}))]}))}
+];
+const ALL=LOTS.flatMap(l=>l.msgs);
+
+const KEY="sproochcoach.enreg.v1";
+let done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(done));}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function render(){
+  document.getElementById("lots").innerHTML=LOTS.map(l=>`
+    <section class="lot">
+      <div class="lot-head"><span class="prio">${l.prio}</span><h2>${esc(l.title)}</h2><p>${esc(l.desc)}</p></div>
+      ${l.msgs.map(m=>`
+        <article class="msg ${done[m.code]?"done":""}" id="msg-${m.code}">
+          <div class="msg-head">
+            <span class="code">${m.code}</span>
+            <span class="msg-title">${esc(m.title)}<small>1 message vocal · ${m.items.length} lignes</small></span>
+            <button class="copy" data-copy="${m.code}" title="Copier le code à envoyer avant le message">Copier le code</button>
+            <label class="sent"><input type="checkbox" id="sent-${m.code}" data-code="${m.code}" ${done[m.code]?"checked":""}> Envoyé</label>
+          </div>
+          <ol class="items">${m.items.map((it,i)=>`
+            <li><span class="n">${i+1}</span><span class="lb" lang="lb">${esc(it.lb)}${it.alt?'<span class="tag">autre formulation</span>':""}${it.ex?'<span class="tag">phrase</span>':""}</span><span class="fr">${esc(it.fr)}</span></li>`).join("")}
+          </ol>
+        </article>`).join("")}
+    </section>`).join("");
+  const n=ALL.filter(m=>done[m.code]).length;
+  document.getElementById("count").textContent=`${n} / ${ALL.length}`;
+  document.getElementById("bar").style.width=(n/ALL.length*100)+"%";
+}
+document.getElementById("lots").addEventListener("change",e=>{
+  const c=e.target.closest("[data-code]");if(!c)return;
+  done[c.dataset.code]=c.checked;save();render();
+});
+document.getElementById("lots").addEventListener("click",e=>{
+  const b=e.target.closest("[data-copy]");if(!b)return;
+  const code=b.dataset.copy;
+  const ok=()=>{b.textContent="Copié";setTimeout(()=>b.textContent="Copier le code",1500);};
+  try{navigator.clipboard.writeText(code).then(ok,()=>{b.textContent=code;});}catch(err){b.textContent=code;}
+});
+render();
+</script>
+
+</body>
+</html>
