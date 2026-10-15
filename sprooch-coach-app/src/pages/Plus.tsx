@@ -6,6 +6,7 @@ export function Plus() {
   const { state } = useStore()
   const due = dueReviews(state).length
   const items: [string, string, string, string][] = [
+    ['/aujourdhui', 'home', 'Plan du jour', 'Vocabulaire, exercice oral et image du jour, compte à rebours'],
     ['/simulation', 'timer', "Simulation d'examen", 'Entretien + image, chronométrés'],
     ['/image', 'image', "Description d'image", 'Choisir une image parmi trois et la décrire'],
     ['/revisions', 'check', 'Révisions', due ? `${due} question${due > 1 ? 's' : ''} à revoir aujourd'hui` : 'Rien à revoir aujourd’hui'],

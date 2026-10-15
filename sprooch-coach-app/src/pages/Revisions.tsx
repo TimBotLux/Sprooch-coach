@@ -18,7 +18,7 @@ export function Revisions() {
       {left.length === 0 ? (
         <div className="card">
           <p className="hint">{ids.length ? 'Révisions du jour terminées. Bravo !' : "Aucune question à réviser aujourd'hui."}</p>
-          <Link className="btn primary" to="/pas-a-pas">Continuer le parcours Pas à pas</Link>
+          <Link className="btn primary" to="/">Continuer le parcours Pas à pas</Link>
         </div>
       ) : (
         <div className="chapter">

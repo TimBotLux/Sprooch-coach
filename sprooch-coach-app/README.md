@@ -23,6 +23,15 @@ npm run preview
 
 Le micro ne fonctionne que sur `localhost` ou en HTTPS.
 
+## Architecture
+
+Selon la charte graphique (`../design/`) : une seule colonne de 720 px, un en-tête commun (titre,
+3 anneaux, avertissement) et trois onglets **Pas à pas · Vocabulaire · Lexique**. Les autres modules
+(plan du jour, simulation, image, révisions, grammaire, progression, réglages) s'ouvrent depuis le
+bouton « ⋯ » de l'en-tête. Couleurs, tailles et rayons : `src/styles/tokens.css` (copie de
+`design/sprooch-coach-tokens.css`) ; polices Young Serif et Figtree servies localement depuis
+`src/assets/fonts` (licence OFL), donc disponibles hors ligne.
+
 ## Modules (référence au PRD)
 
 | Module | PRD | État |
@@ -33,7 +42,7 @@ Le micro ne fonctionne que sur `localhost` ou en HTTPS.
 | Réponse orale : chrono 20–40 s, enregistrement et réécoute, 3 critères, réponse modèle, statut | §4.0 | Fait |
 | Répétition espacée des questions maîtrisées (« Toujours maîtrisée » / « J'ai hésité ») | §4.0 | Fait (intervalles 3, 7, 14, 30, 60 jours) |
 | « On m'a posé cette question à l'examen » | §4.0 | Fait, en local (pas encore partagé entre utilisateurs) |
-| Vocabulaire : Dire le mot / Faire une phrase, mots ratés en priorité | §4.0 bis | Fait (8 thèmes) |
+| Vocabulaire : 26 familles du lexique (Relecture-lexique-Sprooch-Coach.xlsx), mots clés en gras, Dire le mot (option mots clés seulement) / Faire une phrase (7 familles), mots ratés en priorité | §4.0 bis | Fait |
 | Lexique : 1 495 mots, 26 thèmes, 523 mots clés, recherche, filtres, entraînement sur 10 mots | §4.0 ter | Fait |
 | Description d'image : 1 image parmi 3, canevas d'aide, enregistrement chronométré | §4.2 | Fait, **photos à ajouter** (voir plus bas) |
 | Simulation d'examen : 2 thèmes tirés au sort, entretien + image chronométrés, rapport indicatif | §4.1, §4.5 | Fait pour l'épreuve orale |

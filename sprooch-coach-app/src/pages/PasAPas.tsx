@@ -1,7 +1,7 @@
 // Module central « Pas à pas » (PRD §4.0) : chapitres, questions, déverrouillage à 80 %.
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { ALL_QUESTIONS, CHAPTERS, INTRO_CHAPTERS, RELANCES } from '../data'
+import { CHAPTERS, INTRO_CHAPTERS, RELANCES } from '../data'
 import { QuestionCard } from '../components/QuestionCard'
 import { isUnlocked, qStatus, useStore } from '../lib/store'
 
@@ -11,7 +11,6 @@ export function PasAPas() {
   const target = params.get('c')
   const [open, setOpen] = useState<Record<number, boolean>>(() => (target ? { [Number(target)]: true } : { 0: true }))
   const lvl = state.settings.level
-  const mastered = ALL_QUESTIONS.filter(q => qStatus(state, q.id) === 'ok').length
 
   useEffect(() => {
     if (target) document.getElementById(`ch-${target}`)?.scrollIntoView({ block: 'start' })
@@ -22,14 +21,6 @@ export function PasAPas() {
 
   return (
     <>
-      <header className="stack">
-        <h1>Pas à pas<small>Les questions que les examinateurs posent le plus souvent, du plus simple au plus riche.</small></h1>
-        <div className="stack" style={{ gap: 6 }}>
-          <div className="between small muted"><span>Questions maîtrisées</span><span className="num">{mastered} / {ALL_QUESTIONS.length}</span></div>
-          <div className="bar"><i style={{ width: `${(mastered / ALL_QUESTIONS.length) * 100}%` }} /></div>
-        </div>
-      </header>
-
       <section className="stack">
         <div className="seg" role="group" aria-label="Niveau des questions">
           {([['all', 'Tous les niveaux'], ['A1', 'A1 · base'], ['A2', 'A2 · examen']] as const).map(([k, l]) => (

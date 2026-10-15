@@ -1,6 +1,6 @@
 // Accueil : plan du jour (PRD §6) et compte à rebours avant l'examen (PRD §4.6).
 import { Link } from 'react-router-dom'
-import { ALL_QUESTIONS, CHAPTERS, VOCAB } from '../data'
+import { ALL_QUESTIONS, CHAPTERS, FAMILIES } from '../data'
 import { Icon } from '../components/Icon'
 import { Rings } from '../components/Rings'
 import { dayKey, daysBetween, formatDate } from '../lib/dates'
@@ -14,15 +14,16 @@ function nextQuestionChapter(state: AppState): number | null {
   return null
 }
 
+/** La famille à travailler aujourd'hui : la première pas encore validée, dans l'ordre du lexique. */
 function weakestVocab(state: AppState): { key: string; label: string; mode: 'mot' | 'phrase' } {
-  let best = { key: VOCAB[0].key, label: VOCAB[0].label, mode: 'mot' as 'mot' | 'phrase', score: Infinity }
-  for (const v of VOCAB) {
-    const sc = state.vocab[v.key] ?? {}
-    const mot = sc.mot ?? -1, phrase = sc.phrase ?? -1
-    if (mot < 80 && mot < best.score) best = { key: v.key, label: v.label, mode: 'mot', score: mot }
-    else if (mot >= 80 && phrase < 80 && phrase < best.score) best = { key: v.key, label: v.label, mode: 'phrase', score: phrase }
+  for (const f of FAMILIES) {
+    const sc = state.vocab[f.key] ?? {}
+    if ((sc.mot ?? 0) < 80) return { key: f.key, label: f.label, mode: 'mot' }
+    if (f.phrases.length && (sc.phrase ?? 0) < 80) return { key: f.key, label: f.label, mode: 'phrase' }
   }
-  return best
+  // Tout est validé : on révise la famille qui a le plus de mots à revoir.
+  const f = [...FAMILIES].sort((a, b) => (state.vocab[b.key]?.missed?.length ?? 0) - (state.vocab[a.key]?.missed?.length ?? 0))[0]
+  return { key: f.key, label: f.label, mode: 'mot' }
 }
 
 export function Today() {
@@ -74,7 +75,7 @@ export function Today() {
         <h2>Plan du jour</h2>
         <ul className="plan">
           <li>
-            <Link className={done.has('vocab') ? 'done' : ''} to={`/vocabulaire?theme=${vocab.key}&mode=${vocab.mode}`}>
+            <Link className={done.has('vocab') ? 'done' : ''} to={`/vocabulaire?famille=${vocab.key}&mode=${vocab.mode}`}>
               <span className="tick">{done.has('vocab') && <Icon name="check" />}</span>
               <span style={{ flex: 1 }}><b>Vocabulaire · {vocab.label}</b><small>{vocab.mode === 'mot' ? 'Dire le mot' : 'Faire une phrase'} · environ 3 min</small></span>
               <Icon name="chevron" className="" />
@@ -88,7 +89,7 @@ export function Today() {
                 <Icon name="chevron" className="" />
               </Link>
             ) : (
-              <Link className={done.has('oral') ? 'done' : ''} to={ch !== null ? `/pas-a-pas?c=${ch}` : '/pas-a-pas'}>
+              <Link className={done.has('oral') ? 'done' : ''} to={ch !== null ? `/?c=${ch}` : '/'}>
                 <span className="tick">{done.has('oral') && <Icon name="check" />}</span>
                 <span style={{ flex: 1 }}><b>Exercice oral · {ch !== null ? CHAPTERS[ch].title : 'Pas à pas'}</b><small>Répondre à voix haute à de nouvelles questions · environ 10 min</small></span>
                 <Icon name="chevron" className="" />

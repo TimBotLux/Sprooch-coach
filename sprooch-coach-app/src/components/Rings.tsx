@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
-import { ALL_QUESTIONS, LEX, LEX_KEYWORDS, VOCAB } from '../data'
+import { ALL_QUESTIONS, FAMILIES, LEX, LEX_KEYWORDS } from '../data'
 import { useProgress } from '../lib/store'
+
+/** Un exercice « Dire le mot » par famille, plus « Faire une phrase » quand la famille a des consignes. */
+const VOCAB_EXERCISES = FAMILIES.length + FAMILIES.filter(f => f.phrases.length).length
 
 function Ring({ to, label, n, t, color, extra }: { to: string; label: string; n: number; t: number; color: string; extra?: string }) {
   const r = 32
@@ -24,8 +27,8 @@ export function Rings() {
   const p = useProgress()
   return (
     <div className="rings" aria-label="Ma progression">
-      <Ring to="/pas-a-pas" label="Questions maîtrisées" n={p.mastered} t={ALL_QUESTIONS.length} color="var(--ok)" />
-      <Ring to="/vocabulaire" label="Exercices de vocabulaire validés" n={p.vocabValidated} t={VOCAB.length * 2} color="var(--accent)" />
+      <Ring to="/" label="Questions maîtrisées" n={p.mastered} t={ALL_QUESTIONS.length} color="var(--ok)" />
+      <Ring to="/vocabulaire" label="Exercices de vocabulaire validés" n={p.vocabValidated} t={VOCAB_EXERCISES} color="var(--accent)" />
       <Ring to="/lexique" label="Mots clés que je sais dire" n={p.keyKnown} t={LEX_KEYWORDS} color="var(--warn)" extra={`tout le lexique : ${p.lexKnown} / ${LEX.words.length}`} />
     </div>
   )

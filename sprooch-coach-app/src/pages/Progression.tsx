@@ -1,6 +1,6 @@
 // Suivi de progression (PRD §4.6) : jours d'affilée, minutes parlées, thèmes couverts.
 import { Link } from 'react-router-dom'
-import { ALL_QUESTIONS, CHAPTERS, LEX, QUESTION_BY_ID, VOCAB } from '../data'
+import { ALL_QUESTIONS, CHAPTERS, FAMILIES, LEX, QUESTION_BY_ID } from '../data'
 import { SCENES } from '../data/images'
 import { addDays, dayKey, formatDuration } from '../lib/dates'
 import { qStatus, useProgress, useStore } from '../lib/store'
@@ -48,7 +48,7 @@ export function Progression() {
               const cours = c.qs.filter(q => qStatus(state, q.id) === 'cours').length
               return (
                 <tr key={c.index}>
-                  <td><Link to={`/pas-a-pas?c=${c.index}`}>{c.index + 1}. {c.title}</Link></td>
+                  <td><Link to={`/?c=${c.index}`}>{c.index + 1}. {c.title}</Link></td>
                   <td className="num">{cours}</td>
                   <td className="num">{ok} / {c.qs.length}</td>
                 </tr>
@@ -66,14 +66,20 @@ export function Progression() {
       </section>
 
       <section className="card tight">
-        <h2>Vocabulaire</h2>
+        <h2>Familles de vocabulaire</h2>
         <table className="table">
-          <thead><tr><th>Thème</th><th>Dire le mot</th><th>Faire une phrase</th></tr></thead>
+          <thead><tr><th>Famille</th><th>Dire le mot</th><th>Faire une phrase</th></tr></thead>
           <tbody>
-            {VOCAB.map(v => {
-              const sc = state.vocab[v.key] ?? {}
+            {FAMILIES.map(f => {
+              const sc = state.vocab[f.key] ?? {}
               const cell = (n?: number) => (n == null ? '—' : `${n} %${n >= 80 ? ' ✓' : ''}`)
-              return <tr key={v.key}><td>{v.label}</td><td className="num">{cell(sc.mot)}</td><td className="num">{cell(sc.phrase)}</td></tr>
+              return (
+                <tr key={f.key}>
+                  <td><Link to={`/vocabulaire?famille=${f.key}`}>{f.label}</Link></td>
+                  <td className="num">{cell(sc.mot)}</td>
+                  <td className="num">{f.phrases.length ? cell(sc.phrase) : ''}</td>
+                </tr>
+              )
             })}
           </tbody>
         </table>

@@ -71,6 +71,48 @@ export const VOCAB_BY_KEY = new Map(VOCAB.map(v => [v.key, v]))
 export const LEX = lexiqueJson as unknown as { themes: string[]; words: LexWord[] }
 export const LEX_KEYWORDS = LEX.words.filter(w => w[3]).length
 
+/** Une famille de vocabulaire = un thème du lexique (Relecture-lexique-Sprooch-Coach.xlsx). */
+export interface Family {
+  key: string
+  index: number
+  label: string
+  words: LexWord[]
+  keyCount: number
+  /** Consignes « Faire une phrase », quand un thème du prototype correspond */
+  phrases: [string, string][]
+  /** Couleur à montrer à la place du mot (famille des couleurs) */
+  swatch: Map<string, string>
+}
+
+// Thèmes du prototype rattachés aux familles du lexique (pour leurs consignes et pastilles).
+const PROTO_TO_FAMILY: Record<string, string> = {
+  mois: 'Temps, jours et heures',
+  jours: 'Temps, jours et heures',
+  saisons: 'Météo, nature et animaux',
+  couleurs: 'Couleurs et formes',
+  nombres: 'Nombres et quantités',
+  famille: 'Famille et relations',
+  verbes: 'Verbes courants',
+  nourriture: 'Nourriture et boissons',
+}
+
+export const FAMILIES: Family[] = LEX.themes.map((label, index) => {
+  const words = LEX.words.filter(w => w[0] === index)
+  const protos = VOCAB.filter(v => PROTO_TO_FAMILY[v.key] === label)
+  const swatch = new Map<string, string>()
+  for (const v of protos) if (v.swatch) for (const it of v.items) if (it[2]) swatch.set(it[0], it[2])
+  return {
+    key: `lex-${index}`,
+    index,
+    label,
+    words,
+    keyCount: words.filter(w => w[3]).length,
+    phrases: protos.flatMap(v => v.phrases),
+    swatch,
+  }
+})
+export const FAMILY_BY_KEY = new Map(FAMILIES.map(f => [f.key, f]))
+
 export interface GramSection { t: string; ps: [string, string, string][] }
 export const GRAMMAR = grammaireJson as unknown as {
   sections: GramSection[]

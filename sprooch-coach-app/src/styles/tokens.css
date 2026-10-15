@@ -1,0 +1,64 @@
+/* Variables de design reprises de design/sprooch-coach-tokens.css (charte graphique).
+   Polices servies depuis src/assets/fonts (licence OFL) pour fonctionner hors ligne. */
+@font-face { font-family: "Young Serif"; src: url("../assets/fonts/YoungSerif-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Figtree"; src: url("../assets/fonts/Figtree-wght.ttf") format("truetype"); font-weight: 300 900; font-display: swap; }
+/* Sprooch Coach — variables de design (design tokens)
+   À importer en tête de toute page de l'app.
+   Polices : Young Serif (titres, texte luxembourgeois) et Figtree (interface),
+   toutes deux sous licence libre OFL (Google Fonts) — fichiers dans ./fonts */
+
+
+:root {
+  /* Couleurs — thème clair */
+  --bg: #F3F7FA;          /* fond de page, bleu-gris très pâle */
+  --surface: #FFFFFF;     /* cartes, chapitres, champs */
+  --fg: #14212B;          /* texte principal */
+  --muted: #56687A;       /* texte secondaire, traductions */
+  --line: #D8E2E9;        /* bordures, pistes des anneaux, badge A1 */
+  --accent: #0082B8;      /* bleu « ciel » du drapeau : actions, A2, mots clés */
+  --accent-soft: #E1F2FA; /* fonds d'onglet actif, réponse modèle */
+  --ok: #1D8556;          /* « Maîtrisée », « Je l'ai bien dit », progression */
+  --ok-soft: #E0F3EA;
+  --warn: #B4700A;        /* « En cours », « À retravailler », avertissements */
+  --warn-soft: #FBF0DC;
+
+  /* Drapeau luxembourgeois (bandeau du haut uniquement) */
+  --flag-red: #EF3340;
+  --flag-white: #FFFFFF;
+  --flag-blue: #00A3E0;
+
+  /* Typographie */
+  --font-display: "Young Serif", Georgia, "Times New Roman", serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-xs: .75rem;    /* 12 px : étiquettes en capitales */
+  --text-sm: .85rem;    /* 13,6 px : légendes, compteurs */
+  --text-md: 1rem;      /* 16 px : texte courant, boutons */
+  --text-lg: 1.25rem;   /* 20 px : question en luxembourgeois */
+  --text-xl: 1.9rem;    /* 30 px : mot à dire (quiz) */
+  --text-2xl: 2rem;     /* 32 px : titre de l'app */
+
+  /* Formes et espacements */
+  --radius-sm: 8px;     /* boutons secondaires, badges de statut */
+  --radius-md: 10px;    /* boutons principaux, champs */
+  --radius-lg: 12px;    /* onglets, bouton « Répondre à voix haute » */
+  --radius-xl: 14px;    /* cartes */
+  --radius-pill: 99px;  /* badges A1/A2, barres de progression */
+  --gutter: 16px;       /* marge latérale minimale */
+  --gap: 12px;          /* espace entre blocs */
+  --max-width: 720px;   /* colonne unique, centrée */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D151B; --surface: #15212A; --fg: #E6EDF2; --muted: #94A6B4; --line: #253542;
+    --accent: #4FC2EE; --accent-soft: #12303F;
+    --ok: #5ACF97; --ok-soft: #123426; --warn: #F2B44A; --warn-soft: #3A2A0E;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D151B; --surface: #15212A; --fg: #E6EDF2; --muted: #94A6B4; --line: #253542;
+  --accent: #4FC2EE; --accent-soft: #12303F;
+  --ok: #5ACF97; --ok-soft: #123426; --warn: #F2B44A; --warn-soft: #3A2A0E;
+  color-scheme: dark;
+}

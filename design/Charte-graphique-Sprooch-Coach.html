@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Charte graphique Sprooch Coach</title>
+<style>
+@font-face{font-family:"Young Serif";src:url("fonts/YoungSerif-Regular.ttf") format("truetype");font-weight:400}
+@font-face{font-family:"Figtree";src:url("fonts/Figtree[wght].ttf") format("truetype");font-weight:300 900}
+:root{
+  --bg:#F3F7FA;--surface:#FFFFFF;--fg:#14212B;--muted:#56687A;--line:#D8E2E9;
+  --accent:#0082B8;--accent-soft:#E1F2FA;--ok:#1D8556;--ok-soft:#E0F3EA;--warn:#B4700A;--warn-soft:#FBF0DC;
+  --font-display:"Young Serif",Georgia,serif;--font-body:"Figtree",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--fg);font-family:var(--font-body);font-size:13px;line-height:1.5}
+.page{max-width:780px;margin:0 auto;padding:28px 36px 40px}
+.flag{height:6px;display:flex}.flag span{flex:1}
+.flag span:nth-child(1){background:#EF3340}.flag span:nth-child(2){background:#fff;border-block:1px solid var(--line)}.flag span:nth-child(3){background:#00A3E0}
+h1{font-family:var(--font-display);font-weight:400;font-size:34px;line-height:1.1;margin:18px 0 6px}
+h2{font-family:var(--font-display);font-weight:400;font-size:21px;margin:30px 0 10px;padding-top:6px;border-top:1px solid var(--line)}
+h3{font-size:13px;font-weight:700;margin:16px 0 6px;letter-spacing:.02em}
+p{margin:0 0 8px;max-width:64ch}
+.lead{font-size:14.5px;color:var(--muted)}
+.label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.grid{display:grid;gap:10px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.principle{border:1px solid var(--line);border-radius:12px;padding:12px}
+.principle b{display:block;font-size:13.5px;margin-bottom:3px}
+.principle span{color:var(--muted);font-size:12px}
+.sw{border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:11.5px}
+.sw .c{height:30px}
+.sw .t{padding:6px 8px}
+.sw .t b{display:block;font-size:12px}
+.sw code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:12px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.specimen{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.demo{background:var(--bg);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.speak{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;background:var(--accent);color:#fff;font:700 14px var(--font-body);padding:12px 18px;border-radius:12px}
+.ghost{border:1px solid var(--line);background:var(--surface);color:var(--accent);font:600 12px var(--font-body);padding:6px 10px;border-radius:8px}
+.seg{display:flex;gap:4px}.seg span{flex:1;text-align:center;border:1px solid var(--line);background:var(--surface);color:var(--muted);font:600 12px var(--font-body);padding:8px;border-radius:8px}
+.seg .v{background:var(--line);color:var(--fg)}.seg .c{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}.seg .o{background:var(--ok-soft);color:var(--ok);border-color:var(--ok)}
+.lv{font:700 10px var(--font-body);letter-spacing:.04em;padding:2px 8px;border-radius:99px;background:var(--line);color:var(--muted)}.lv.a2{background:var(--accent-soft);color:var(--accent)}
+.ok-btn{border:1px solid var(--ok);background:var(--ok-soft);color:var(--ok);font:600 12.5px var(--font-body);padding:9px 14px;border-radius:10px}
+.ko-btn{border:1px solid var(--warn);background:var(--warn-soft);color:var(--warn);font:600 12.5px var(--font-body);padding:9px 14px;border-radius:10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.qlb{font-family:var(--font-display);font-size:19px;line-height:1.3}
+.ring{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;font-size:11px}
+.ring b{font-size:11.5px}
+.ring svg{width:64px;height:64px}
+.trk{fill:none;stroke:var(--line);stroke-width:7}.val{fill:none;stroke-width:7;stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%}
+.note{font-size:12px;color:var(--warn);background:var(--warn-soft);border-radius:8px;padding:8px 12px}
+.shots{display:grid;grid-template-columns:repeat(3,184px);justify-content:center;gap:16px 22px}
+.shots figure{margin:0}.shots img{width:100%;border:1px solid var(--line);border-radius:12px;display:block}
+.shots figcaption{font-size:11px;color:var(--muted);margin-top:4px}
+.map{width:100%;height:auto}
+.pb{break-before:page}
+.sw,.principle,.specimen,.demo,figure,svg,tr,.grid{break-inside:avoid}
+@page{size:A4;margin:12mm 0}
+</style>
+</head>
+<body>
+<div class="flag"><span></span><span></span><span></span></div>
+<div class="page">
+  <div class="label">Charte graphique · version prototype · octobre 2026</div>
+  <h1>Sprooch Coach</h1>
+  <p class="lead">Application de préparation à l'oral du Sproochentest. Une colonne unique pensée pour le téléphone, aux couleurs du drapeau luxembourgeois, où l'on répond toujours à voix haute.</p>
+
+  <h2>1. Principes</h2>
+  <div class="grid g2">
+    <div class="principle"><b>L'oral d'abord</b><span>L'action principale de chaque écran est un grand bouton bleu avec un micro : « Répondre à voix haute ». Pas de saisie écrite.</span></div>
+    <div class="principle"><b>Le luxembourgeois en vedette</b><span>Tout texte en luxembourgeois est en Young Serif, plus grand ; le français reste en Figtree, plus discret, souvent masqué.</span></div>
+    <div class="principle"><b>La progression visible</b><span>Trois anneaux en haut, une barre par thème, des statuts colorés : on voit d'un coup d'œil ce qui reste à faire.</span></div>
+    <div class="principle"><b>Calme et lisible</b><span>Fond bleu-gris très pâle, cartes blanches, une seule couleur d'action. Le drapeau n'apparaît qu'en bandeau fin.</span></div>
+  </div>
+
+  <h2>2. Couleurs</h2>
+  <p>Chaque couleur a un rôle unique. Le vert, l'orange et le bleu portent un sens (réussi, en cours, action), on ne les utilise pas pour décorer.</p>
+  <div class="label" style="margin:10px 0 6px">Thème clair</div>
+  <div class="grid g4">
+    <div class="sw"><div class="c" style="background:#F3F7FA"></div><div class="t"><b>Fond</b><code>--bg #F3F7FA</code></div></div>
+    <div class="sw"><div class="c" style="background:#FFFFFF"></div><div class="t"><b>Surface</b><code>--surface #FFFFFF</code></div></div>
+    <div class="sw"><div class="c" style="background:#14212B"></div><div class="t"><b>Texte</b><code>--fg #14212B</code></div></div>
+    <div class="sw"><div class="c" style="background:#56687A"></div><div class="t"><b>Texte secondaire</b><code>--muted #56687A</code></div></div>
+    <div class="sw"><div class="c" style="background:#0082B8"></div><div class="t"><b>Action, A2, mots clés</b><code>--accent #0082B8</code></div></div>
+    <div class="sw"><div class="c" style="background:#1D8556"></div><div class="t"><b>Réussi, maîtrisé</b><code>--ok #1D8556</code></div></div>
+    <div class="sw"><div class="c" style="background:#B4700A"></div><div class="t"><b>En cours, à revoir</b><code>--warn #B4700A</code></div></div>
+    <div class="sw"><div class="c" style="background:#D8E2E9"></div><div class="t"><b>Bordures, pistes</b><code>--line #D8E2E9</code></div></div>
+  </div>
+  <div class="label" style="margin:14px 0 6px">Thème sombre (suivi automatiquement selon le téléphone)</div>
+  <div class="grid g4">
+    <div class="sw"><div class="c" style="background:#0D151B"></div><div class="t"><b>Fond</b><code>#0D151B</code></div></div>
+    <div class="sw"><div class="c" style="background:#15212A"></div><div class="t"><b>Surface</b><code>#15212A</code></div></div>
+    <div class="sw"><div class="c" style="background:#E6EDF2"></div><div class="t"><b>Texte</b><code>#E6EDF2</code></div></div>
+    <div class="sw"><div class="c" style="background:#94A6B4"></div><div class="t"><b>Texte secondaire</b><code>#94A6B4</code></div></div>
+    <div class="sw"><div class="c" style="background:#4FC2EE"></div><div class="t"><b>Action</b><code>#4FC2EE</code></div></div>
+    <div class="sw"><div class="c" style="background:#5ACF97"></div><div class="t"><b>Réussi</b><code>#5ACF97</code></div></div>
+    <div class="sw"><div class="c" style="background:#F2B44A"></div><div class="t"><b>En cours</b><code>#F2B44A</code></div></div>
+    <div class="sw"><div class="c" style="background:#253542"></div><div class="t"><b>Bordures</b><code>#253542</code></div></div>
+  </div>
+  <div class="label" style="margin:14px 0 6px">Drapeau (bandeau de 6 px en haut de l'écran uniquement)</div>
+  <div class="grid g3">
+    <div class="sw"><div class="c" style="background:#EF3340"></div><div class="t"><code>#EF3340</code></div></div>
+    <div class="sw"><div class="c" style="background:#FFFFFF"></div><div class="t"><code>#FFFFFF</code></div></div>
+    <div class="sw"><div class="c" style="background:#00A3E0"></div><div class="t"><code>#00A3E0</code></div></div>
+  </div>
+
+  <h2>3. Typographie</h2>
+  <div class="grid g2">
+    <div class="specimen"><div class="label">Young Serif · titres et luxembourgeois</div><div style="font-family:var(--font-display);font-size:30px;line-height:1.1">Moien, wéi geet et Iech?</div><div style="color:var(--muted)">Serif chaleureux et lisible, gère bien ë, é, ä. Toujours en taille normale (400), jamais en gras forcé.</div></div>
+    <div class="specimen"><div class="label">Figtree · interface et français</div><div style="font-size:22px;font-weight:600">Répondre à voix haute</div><div style="color:var(--muted)">Sans-serif net, 4 graisses : 400 texte, 500, 600 boutons et titres de cartes, 700 actions principales.</div></div>
+  </div>
+  <table style="margin-top:12px">
+    <tr><th>Usage</th><th>Police</th><th>Taille</th><th>Graisse</th></tr>
+    <tr><td>Titre de l'app</td><td>Young Serif</td><td>32 px</td><td>400</td></tr>
+    <tr><td>Mot à dire (quiz)</td><td>Young Serif</td><td>30 px</td><td>400</td></tr>
+    <tr><td>Question en luxembourgeois</td><td>Young Serif</td><td>20 px</td><td>400</td></tr>
+    <tr><td>Mot du lexique (mot clé en bleu, gras)</td><td>Young Serif</td><td>17 px</td><td>400 / 700</td></tr>
+    <tr><td>Texte courant, boutons</td><td>Figtree</td><td>16 px</td><td>400 / 600–700</td></tr>
+    <tr><td>Traduction, légendes, compteurs</td><td>Figtree</td><td>13–15 px</td><td>400, gris</td></tr>
+    <tr><td>Étiquettes (« 1. CHOISISSEZ UN THÈME »)</td><td>Figtree capitales, espacées</td><td>12 px</td><td>600</td></tr>
+  </table>
+
+  <h2 class="pb">4. Composants</h2>
+  <div class="demo">
+    <div class="row">
+      <span class="speak"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg> Répondre à voix haute</span>
+      <span class="ghost">Voir la traduction</span>
+      <span class="lv">A1</span><span class="lv a2">A2</span>
+    </div>
+    <div class="seg"><span class="v">À voir</span><span>En cours</span><span>Maîtrisée</span></div>
+    <div class="seg"><span>À voir</span><span class="c">En cours</span><span class="o">Maîtrisée</span></div>
+    <div class="row"><span class="ok-btn">Je l'ai bien dit</span><span class="ko-btn">À retravailler</span></div>
+    <div class="card"><span class="lv a2">A2</span><div class="qlb" style="margin-top:8px">Firwat sidd Dir op Lëtzebuerg komm?</div><div style="color:var(--muted);font-size:12px">Pourquoi êtes-vous venu(e) au Luxembourg ?</div></div>
+    <div class="card row" style="justify-content:space-around">
+      <div class="ring"><svg viewBox="0 0 80 80"><circle class="trk" cx="40" cy="40" r="32"/><circle class="val" cx="40" cy="40" r="32" style="stroke:var(--ok);stroke-dasharray:201;stroke-dashoffset:120"/><text x="40" y="45" text-anchor="middle" style="font:700 15px Figtree;fill:var(--fg)">40 %</text></svg><b>Questions maîtrisées</b></div>
+      <div class="ring"><svg viewBox="0 0 80 80"><circle class="trk" cx="40" cy="40" r="32"/><circle class="val" cx="40" cy="40" r="32" style="stroke:var(--accent);stroke-dasharray:201;stroke-dashoffset:150"/><text x="40" y="45" text-anchor="middle" style="font:700 15px Figtree;fill:var(--fg)">25 %</text></svg><b>Exercices validés</b></div>
+      <div class="ring"><svg viewBox="0 0 80 80"><circle class="trk" cx="40" cy="40" r="32"/><circle class="val" cx="40" cy="40" r="32" style="stroke:var(--warn);stroke-dasharray:201;stroke-dashoffset:90"/><text x="40" y="45" text-anchor="middle" style="font:700 15px Figtree;fill:var(--fg)">55 %</text></svg><b>Mots clés</b></div>
+    </div>
+    <div class="note">Avertissement : fond orangé pâle, texte orange foncé. Réservé aux limites du prototype et aux contenus à faire relire.</div>
+  </div>
+  <table style="margin-top:12px">
+    <tr><th>Élément</th><th>Règle</th></tr>
+    <tr><td>Cartes (chapitres, questions)</td><td>Fond surface, bordure 1 px, rayon 14 px, pas d'ombre.</td></tr>
+    <tr><td>Bouton principal</td><td>Un seul par écran : plein, bleu, rayon 12 px, largeur totale sur téléphone, icône micro.</td></tr>
+    <tr><td>Boutons secondaires</td><td>Contour gris, texte bleu, rayon 8 px.</td></tr>
+    <tr><td>Statut d'une question</td><td>Trois boutons segmentés : À voir (gris) → En cours (orange) → Maîtrisée (vert).</td></tr>
+    <tr><td>Niveau</td><td>Pastille A1 grise (base), A2 bleue (niveau de l'examen).</td></tr>
+    <tr><td>Progression</td><td>Anneaux de 76 px (vert questions, bleu exercices, orange mots clés) ; barre de 5 px par thème.</td></tr>
+    <tr><td>Focus clavier</td><td>Contour bleu 2 px, décalé de 2 px. Animations coupées si l'utilisateur réduit les mouvements.</td></tr>
+  </table>
+
+  <h2 class="pb">5. Structure des écrans</h2>
+  <p>Une seule colonne de 720 px maximum, marge latérale de 16 px, tout empilé verticalement. Trois onglets partagent le même en-tête.</p>
+  <svg class="map" viewBox="0 0 700 330" font-family="Figtree" font-size="12">
+    <rect x="10" y="10" width="200" height="300" rx="14" fill="#F3F7FA" stroke="#D8E2E9"/>
+    <rect x="10" y="10" width="200" height="5" fill="#00A3E0"/><rect x="10" y="10" width="67" height="5" fill="#EF3340"/>
+    <text x="24" y="40" font-family="Young Serif" font-size="16" fill="#14212B">Sprooch Coach</text>
+    <rect x="24" y="52" width="172" height="58" rx="10" fill="#fff" stroke="#D8E2E9"/><text x="34" y="85" fill="#56687A">3 anneaux de progression</text>
+    <rect x="24" y="118" width="172" height="26" rx="8" fill="#FBF0DC"/><text x="34" y="135" fill="#B4700A">Avertissement prototype</text>
+    <rect x="24" y="152" width="172" height="26" rx="10" fill="#fff" stroke="#D8E2E9"/><rect x="28" y="156" width="54" height="18" rx="7" fill="#E1F2FA"/>
+    <text x="34" y="169" fill="#0082B8" font-size="10">Pas à pas</text><text x="90" y="169" fill="#56687A" font-size="10">Vocabulaire</text><text x="152" y="169" fill="#56687A" font-size="10">Lexique</text>
+    <rect x="24" y="186" width="172" height="112" rx="10" fill="#fff" stroke="#D8E2E9"/><text x="34" y="246" fill="#56687A">Contenu de l'onglet</text>
+    <g fill="none" stroke="#56687A" stroke-width="1.2"><path d="M196 216 C 240 216, 240 60, 270 60"/><path d="M196 242 C 240 242, 250 160, 270 160"/><path d="M196 268 C 240 268, 250 262, 270 262"/></g>
+    <rect x="270" y="20" width="420" height="80" rx="12" fill="#fff" stroke="#D8E2E9"/>
+    <text x="284" y="42" font-weight="700" fill="#14212B">Pas à pas · 18 chapitres, 212 questions</text>
+    <text x="284" y="62" fill="#56687A">Filtre A1 / A2 → chapitre → question → « Répondre à voix haute »</text>
+    <text x="284" y="80" fill="#56687A">→ chronomètre → vérification (3 critères) → réponse modèle → statut</text>
+    <rect x="270" y="120" width="420" height="80" rx="12" fill="#fff" stroke="#D8E2E9"/>
+    <text x="284" y="142" font-weight="700" fill="#14212B">Vocabulaire · 8 thèmes × 2 exercices</text>
+    <text x="284" y="162" fill="#56687A">Thème → « Dire le mot » ou « Faire une phrase » → réponse dite</text>
+    <text x="284" y="180" fill="#56687A">→ affichage de la solution → auto-évaluation → score (validé à 80 %)</text>
+    <rect x="270" y="220" width="420" height="80" rx="12" fill="#fff" stroke="#D8E2E9"/>
+    <text x="284" y="242" font-weight="700" fill="#14212B">Lexique · 1 495 mots, 523 mots clés</text>
+    <text x="284" y="262" fill="#56687A">Recherche + thème + filtre → case « je sais le dire »</text>
+    <text x="284" y="280" fill="#56687A">→ « S'entraîner sur 10 mots » renvoie vers l'exercice oral</text>
+  </svg>
+
+  <h2 class="pb">6. Écrans (thème clair)</h2>
+  <div class="shots">
+    <figure><img src="ecrans/01-accueil-pas-a-pas-clair.png" alt=""><figcaption>Accueil : anneaux et parcours</figcaption></figure>
+    <figure><img src="ecrans/02-question-reponse-orale-clair.png" alt=""><figcaption>Réponse orale chronométrée</figcaption></figure>
+    <figure><img src="ecrans/03-question-verification-clair.png" alt=""><figcaption>Vérification et réponse modèle</figcaption></figure>
+    <figure><img src="ecrans/04-vocabulaire-choix-clair.png" alt=""><figcaption>Vocabulaire : choix du thème</figcaption></figure>
+    <figure><img src="ecrans/05-vocabulaire-dire-le-mot-clair.png" alt=""><figcaption>Dire le mot et s'auto-évaluer</figcaption></figure>
+    <figure><img src="ecrans/06-lexique-clair.png" alt=""><figcaption>Lexique par thème</figcaption></figure>
+  </div>
+  <h2 class="pb">7. Écrans (thème sombre)</h2>
+  <div class="shots">
+    <figure><img src="ecrans/01-accueil-pas-a-pas-sombre.png" alt=""><figcaption>Accueil</figcaption></figure>
+    <figure><img src="ecrans/02-question-reponse-orale-sombre.png" alt=""><figcaption>Réponse orale</figcaption></figure>
+    <figure><img src="ecrans/03-question-verification-sombre.png" alt=""><figcaption>Vérification</figcaption></figure>
+    <figure><img src="ecrans/04-vocabulaire-choix-sombre.png" alt=""><figcaption>Vocabulaire</figcaption></figure>
+    <figure><img src="ecrans/05-vocabulaire-dire-le-mot-sombre.png" alt=""><figcaption>Dire le mot</figcaption></figure>
+    <figure><img src="ecrans/06-lexique-sombre.png" alt=""><figcaption>Lexique</figcaption></figure>
+  </div>
+  <p style="margin-top:16px;color:var(--muted);font-size:11px">Polices Young Serif et Figtree sous licence SIL Open Font License (fichiers dans le dossier « fonts »). Variables réutilisables : sprooch-coach-tokens.css.</p>
+</div>
+</body>
+</html>

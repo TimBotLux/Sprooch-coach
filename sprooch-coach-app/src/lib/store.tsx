@@ -1,7 +1,7 @@
 // État de l'app, conservé uniquement dans le navigateur (localStorage).
 // Aucun enregistrement vocal n'est stocké ici : ils restent en mémoire le temps de la séance (PRD §8, RGPD).
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
-import { ALL_QUESTIONS, CHAPTERS, INTRO_CHAPTERS, LEX, type Level } from '../data'
+import { ALL_QUESTIONS, CHAPTERS, FAMILIES, INTRO_CHAPTERS, LEX, type Level } from '../data'
 import { addDays, dayKey, daysBetween } from './dates'
 
 export type QStatus = 'voir' | 'cours' | 'ok'
@@ -197,7 +197,7 @@ export function useProgress() {
   return useMemo(() => {
     const mastered = ALL_QUESTIONS.filter(q => qStatus(state, q.id) === 'ok').length
     const inProgress = ALL_QUESTIONS.filter(q => qStatus(state, q.id) === 'cours').length
-    const vocabValidated = Object.values(state.vocab).reduce((a, t) => a + ((t.mot ?? 0) >= 80 ? 1 : 0) + ((t.phrase ?? 0) >= 80 ? 1 : 0), 0)
+    const vocabValidated = FAMILIES.reduce((a, f) => a + ((state.vocab[f.key]?.mot ?? 0) >= 80 ? 1 : 0) + ((state.vocab[f.key]?.phrase ?? 0) >= 80 ? 1 : 0), 0)
     const keyKnown = LEX.words.filter(w => w[3] && state.lex[w[1]]).length
     const lexKnown = LEX.words.filter(w => state.lex[w[1]]).length
     const today = dayKey()

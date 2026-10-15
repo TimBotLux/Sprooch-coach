@@ -1,30 +1,11 @@
-/* Thème repris du prototype Sprooch-Coach.html : mêmes couleurs, polices et composants. */
-:root{
-  --bg:#F3F7FA; --surface:#FFFFFF; --fg:#14212B; --muted:#56687A; --line:#D8E2E9;
-  --accent:#0082B8; --accent-soft:#E1F2FA;
-  --ok:#1D8556; --ok-soft:#E0F3EA; --warn:#B4700A; --warn-soft:#FBF0DC;
-  --danger:#B42318; --danger-soft:#FDECEA;
-  --font-display:"Young Serif", Georgia, "Times New Roman", serif;
-  --font-body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --nav-h:64px;
-  color-scheme:light;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0D151B; --surface:#15212A; --fg:#E6EDF2; --muted:#94A6B4; --line:#253542;
-    --accent:#4FC2EE; --accent-soft:#12303F;
-    --ok:#5ACF97; --ok-soft:#123426; --warn:#F2B44A; --warn-soft:#3A2A0E;
-    --danger:#FF8A80; --danger-soft:#3B1715;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0D151B; --surface:#15212A; --fg:#E6EDF2; --muted:#94A6B4; --line:#253542;
-  --accent:#4FC2EE; --accent-soft:#12303F;
-  --ok:#5ACF97; --ok-soft:#123426; --warn:#F2B44A; --warn-soft:#3A2A0E;
-  --danger:#FF8A80; --danger-soft:#3B1715;
-  color-scheme:dark;
-}
+/* Mise en forme de l'app selon la charte graphique (design/Charte-graphique-Sprooch-Coach.html).
+   Les couleurs, polices, tailles et rayons viennent de styles/tokens.css. */
+@import "./styles/tokens.css";
+
+/* Compléments propres à l'app (non définis dans la charte) */
+:root{ --danger:#B42318; --danger-soft:#FDECEA; }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --danger:#FF8A80; --danger-soft:#3B1715; } }
+:root[data-theme="dark"]{ --danger:#FF8A80; --danger-soft:#3B1715; }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:1rem;line-height:1.5}
@@ -37,10 +18,10 @@ a{color:var(--accent)}
 /* Structure */
 .flag{height:6px;display:flex}
 .flag span{flex:1}
-.flag span:nth-child(1){background:#EF3340}
-.flag span:nth-child(2){background:#FFFFFF;border-block:1px solid var(--line)}
-.flag span:nth-child(3){background:#00A3E0}
-.wrap{max-width:720px;margin:0 auto;padding:20px 16px calc(var(--nav-h) + 32px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:20px}
+.flag span:nth-child(1){background:var(--flag-red)}
+.flag span:nth-child(2){background:var(--flag-white);border-block:1px solid var(--line)}
+.flag span:nth-child(3){background:var(--flag-blue)}
+.wrap{max-width:var(--max-width);margin:0 auto;padding:20px var(--gutter) calc(48px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:20px}
 .stack{display:flex;flex-direction:column;gap:12px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .row>.grow{flex:1}
@@ -201,12 +182,12 @@ audio{width:100%;height:40px}
 .app-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .icon-btn{flex:none;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:99px;cursor:pointer;text-decoration:none}
 .icon-btn svg{width:20px;height:20px}
-.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
-.tabbar ul{list-style:none;margin:0 auto;padding:0 4px;max-width:720px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));height:var(--nav-h)}
-.tabbar a{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--muted);text-decoration:none;font:600 .72rem var(--font-body);border-radius:10px}
-.tabbar a svg{width:22px;height:22px}
-.tabbar a.active{color:var(--accent)}
-.tabbar a.active svg{stroke-width:2.4}
+/* Onglets du haut (charte §5 : trois onglets partagent le même en-tête) */
+.tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:4px}
+.tabs a{flex:1;text-align:center;text-decoration:none;color:var(--muted);font:600 .95rem var(--font-body);padding:10px 4px;border-radius:9px}
+.tabs a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.back{align-self:flex-start;display:inline-flex;align-items:center;gap:4px;min-height:44px;color:var(--accent);font-weight:600;text-decoration:none}
+.back svg{width:18px;height:18px}
 .menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
 .menu a{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:center;color:var(--fg);text-decoration:none}
 .menu a svg{width:22px;height:22px;color:var(--accent);flex:none}

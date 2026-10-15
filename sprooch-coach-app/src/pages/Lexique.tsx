@@ -1,5 +1,6 @@
 // Lexique d'environ 1 500 mots (PRD §4.0 ter).
 import { useDeferredValue, useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { LEX, type LexWord } from '../data'
 import { WordQuiz, type QuizItem } from '../components/WordQuiz'
 import { Icon } from '../components/Icon'
@@ -13,7 +14,8 @@ const WORD_INDEX = new Map(LEX.words.map((w, i) => [w, i]))
 export function Lexique() {
   const { state, setLex, logActivity, markDone } = useStore()
   const [query, setQuery] = useState('')
-  const [theme, setTheme] = useState(-1)
+  const [params] = useSearchParams()
+  const [theme, setTheme] = useState(() => { const raw = params.get('theme'); const t = raw === null ? -1 : Number(raw); return Number.isInteger(t) && t >= 0 && t < LEX.themes.length ? t : -1 })
   const [filter, setFilter] = useState<'all' | 'key' | 'todo' | 'known'>('all')
   const [limit, setLimit] = useState(PAGE)
   const [quiz, setQuiz] = useState<QuizItem[] | null>(null)
@@ -45,7 +47,6 @@ export function Lexique() {
   if (quiz) {
     return (
       <>
-        <h1>Lexique<small>{theme >= 0 ? LEX.themes[theme] : 'Sélection du lexique'}</small></h1>
         <WordQuiz
           key={run}
           title={theme >= 0 ? LEX.themes[theme] : 'Lexique'}
@@ -64,7 +65,6 @@ export function Lexique() {
 
   return (
     <>
-      <h1>Lexique<small>Environ 1 500 mots classés par thème de l'examen.</small></h1>
       <section className="card tight">
         <p className="small muted">Les <b style={{ color: 'var(--accent)', fontFamily: 'var(--font-display)' }}>mots en gras</b> sont les mots clés pour répondre à l'examinateur (sélection selon les thèmes du Sproochentest, pas une liste officielle). Cochez un mot quand vous savez le <b>dire</b> sans regarder.</p>
         <input className="field" type="search" value={query} onChange={e => { setQuery(e.target.value); setLimit(PAGE) }} placeholder="Chercher un mot en luxembourgeois ou en français" aria-label="Chercher un mot" />

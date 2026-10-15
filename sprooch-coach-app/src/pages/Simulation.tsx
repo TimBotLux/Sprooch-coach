@@ -179,8 +179,8 @@ export function Simulation() {
         )}
         <p className="note">Ce n'est pas une note officielle : seule l'épreuve de l'INL fait foi.</p>
         <div className="row2">
-          {chapter && <Link className="btn primary" to={`/pas-a-pas?c=${chapter.index}`}>Travailler ce thème</Link>}
-          <Link className="ghost" style={{ justifyContent: 'center' }} to="/">Retour à l'accueil</Link>
+          {chapter && <Link className="btn primary" to={`/?c=${chapter.index}`}>Travailler ce thème</Link>}
+          <Link className="ghost" style={{ justifyContent: 'center' }} to="/">Retour aux exercices</Link>
         </div>
       </div>
     </>
